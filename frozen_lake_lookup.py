@@ -51,7 +51,7 @@ def fitness(learning_rate, discount_rate):
             action = np.argmax(actions_in_state + noise)
 
             next_state, reward, done, _ = env.step(action)
-            Q_table[state, action] = learning_rate * (reward + discount_rate * np.max(Q_table[next_state, :]))
+            Q_table[state, action] = Q_table[state, action] +  learning_rate * (reward + discount_rate * np.max(Q_table[next_state, :]) - Q_table[state, action])
 
             episode_reward += reward
             state = next_state
